@@ -1,0 +1,96 @@
+> db.createCollection("std")
+{ "ok" : 1 }
+
+> db.std.insert({"id":1,"name":"anjali","place":"kollam","phone":8582639562,"vaccination status":"both vaccinated","RTPCR":"negative","lab mark":{"internal":30,"external":45},"department":"mca"})
+WriteResult({ "nInserted" : 1 })
+> db.std.insert({"id":2,"name":"anuradha","place":"varkala","phone":9992639562,"vaccination status":"both vaccinated","RTPCR":"negative","lab mark":{"internal":40,"external":48},"department":"civil"})
+WriteResult({ "nInserted" : 1 })
+> db.std.insert({"id":3,"name":"bismiya","place":"kollam","phone":9446639562,"vaccination status":"not vaccinated","RTPCR":"positive","lab mark":{"internal":50,"external":39},"department":"mca"})
+WriteResult({ "nInserted" : 1 })
+> db.std.insert({"id":4,"name":"vimal","place":"ernakulam","phone":8582639568,"vaccination status":"first dose only","RTPCR":"positive","lab mark":{"internal":40,"external":42},"department":"civil"})
+WriteResult({ "nInserted" : 1 })
+> db.std.insert({"id":5,"name":"vivek","place":"kollam","phone":8582639777,"vaccination status":"both vaccinated","RTPCR":"negative","lab mark":{"internal":50,"external":50},"department":"mca"})
+WriteResult({ "nInserted" : 1 })
+
+> db.std.find().pretty()
+{
+        "_id" : ObjectId("62d1501c4417a7f61dbffb48"),
+        "id" : 1,
+        "name" : "anjali",
+        "place" : "kollam",
+        "phone" : 8582639562,
+        "vaccination status" : "both vaccinated",
+        "RTPCR" : "negative",
+        "lab mark" : {
+                "internal" : 30,
+                "external" : 45
+        },
+        "department" : "mca"
+}
+{
+        "_id" : ObjectId("62d150814417a7f61dbffb49"),
+        "id" : 2,
+        "name" : "anuradha",
+        "place" : "varkala",
+        "phone" : 9992639562,
+        "vaccination status" : "both vaccinated",
+        "RTPCR" : "negative",
+        "lab mark" : {
+                "internal" : 40,
+                "external" : 48
+        },
+        "department" : "civil"
+}
+{
+        "_id" : ObjectId("62d1511a4417a7f61dbffb4a"),
+        "id" : 3,
+        "name" : "bismiya",
+        "place" : "kollam",
+        "phone" : 9446639562,
+        "vaccination status" : "not vaccinated",
+        "RTPCR" : "positive",
+        "lab mark" : {
+                "internal" : 50,
+                "external" : 39
+        },
+        "department" : "mca"
+}
+{
+        "_id" : ObjectId("62d1518b4417a7f61dbffb4b"),
+        "id" : 4,
+        "name" : "vimal",
+        "place" : "ernakulam",
+        "phone" : 8582639568,
+        "vaccination status" : "first dose only",
+        "RTPCR" : "positive",
+        "lab mark" : {
+                "internal" : 40,
+                "external" : 42
+        },
+        "department" : "civil"
+}
+{
+        "_id" : ObjectId("62d151fe4417a7f61dbffb4c"),
+        "id" : 5,
+        "name" : "vivek",
+        "place" : "kollam",
+        "phone" : 8582639777,
+        "vaccination status" : "both vaccinated",
+        "RTPCR" : "negative",
+        "lab mark" : {
+                "internal" : 50,
+                "external" : 50
+        },
+        "department" : "mca"
+}
+> db.std.count({"vaccination status":"not vaccinated"})
+1
+
+> db.std.find({"department":"mca"},{"name":1,"phone":1}).sort({"external.lab mark":-1})
+{ "_id" : ObjectId("62d1501c4417a7f61dbffb48"), "name" : "anjali", "phone" : 8582639562 }
+{ "_id" : ObjectId("62d1511a4417a7f61dbffb4a"), "name" : "bismiya", "phone" : 9446639562 }
+{ "_id" : ObjectId("62d151fe4417a7f61dbffb4c"), "name" : "vivek", "phone" : 8582639777 }
+
+}
+> db.std.updateOne({"id":4},{$set:{"vaccination status":"both vaccinated"}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
